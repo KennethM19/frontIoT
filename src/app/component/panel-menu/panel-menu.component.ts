@@ -70,7 +70,7 @@ export class PanelMenuComponent implements OnInit {
       index: index
     };
   
-    const apiUrl = 'https://iot-production-c059.up.railway.app/api/datos';
+    const apiUrl = 'https://iot-production-c059.up.railway.app/api/actualizar-movimiento';
   
     this.http.post(apiUrl, payload).subscribe({
       next: (response) => console.log('Datos enviados con éxito:', response),

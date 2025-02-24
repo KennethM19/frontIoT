@@ -1,0 +1,7 @@
+<div class="bpm-container">
+    <h3>Último BPM recibido:</h3>
+    <p *ngIf="lastBpm !== null; else loading">{{ lastBpm }} BPM</p>
+    <ng-template #loading>
+      <p>Cargando...</p>
+    </ng-template>
+  </div>

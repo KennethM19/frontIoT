@@ -1,0 +1,7 @@
+<div class="spo-container">
+    <h3>Último BPM recibido:</h3>
+    <p *ngIf="lastSpo !== null; else loading">{{ lastSpo }} BPM</p>
+    <ng-template #loading>
+      <p>Cargando...</p>
+    </ng-template>
+  </div>
