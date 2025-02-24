@@ -25,6 +25,8 @@ export class BpmDisplayComponent implements OnInit {
       next: (data) => {
         if (data.length > 0) {
           this.lastBpm = data[data.length - 1]; // Último valor del array
+        } else {
+          this.lastBpm = 0.00;
         }
       },
       error: (error) => console.error('Error al obtener BPM:', error)

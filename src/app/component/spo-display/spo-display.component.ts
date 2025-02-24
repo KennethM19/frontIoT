@@ -26,6 +26,8 @@ export class SpoDisplayComponent implements OnInit {
       next: (data) => {
         if (data.length > 0) {
           this.lastSpo = data[data.length - 1]; 
+        } else {
+          this.lastSpo = 0.00;
         }
       },
       error: (error) => console.error('Error al obtener BPM:', error)
