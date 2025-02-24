@@ -1,1 +1,12 @@
-<p>menu works!</p>
+<section class="card flex">
+    <p-drawer [(visible)]="visible" header="Drawer">
+        <div class="pages">
+            <button (click)="goDashboard()">Monitoreo</button>
+            <button (click)="goSignals()">Configuración</button>
+        </div>
+        <div>
+            <button (click)="logout()">desconectarse</button>
+        </div>
+    </p-drawer>
+    <p-button (click)="visible = true" icon="pi pi-arrow-right" />
+</section>

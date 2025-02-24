@@ -13,7 +13,7 @@ export class AuthService {
   }
 
   login(username: string, password: string): boolean {
-    if (username === 'admin' && password === '1234') {
+    if (username === 'admin@admin.com' && password === '1234') {
       localStorage.setItem(this.TOKEN_KEY, 'token_de_ejemplo');
       this.isAuthenticated.set(true);
       this.router.navigate(['/dashboard']);

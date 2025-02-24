@@ -6,12 +6,12 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
-  standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './login.component.html',
+  styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  username = '';
+  email = '';
   password = '';
   errorMessage = signal('');
 
@@ -22,7 +22,7 @@ export class LoginComponent {
   }
 
   login(): void {
-    if (!this.authService.login(this.username, this.password)) {
+    if (!this.authService.login(this.email, this.password)) {
       this.errorMessage.set('Usuario o contraseña incorrectos');
     }
   }
