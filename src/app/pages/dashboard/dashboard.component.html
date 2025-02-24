@@ -1,6 +1,13 @@
 <app-menu></app-menu>
-<app-heart-rate></app-heart-rate>
-<app-table-signal></app-table-signal>
-<app-bpm-display></app-bpm-display>
-<app-spo-display></app-spo-display>
-
+<section class="dashboard-container">
+    <div class="first-div">
+        <app-bpm-display></app-bpm-display>
+        <app-spo-display></app-spo-display>
+    </div>
+    <div class = 'second-div'>
+        <div class="graphic">
+            <app-heart-rate></app-heart-rate>
+        </div>
+        <app-table-signal></app-table-signal>
+    </div>
+</section>
