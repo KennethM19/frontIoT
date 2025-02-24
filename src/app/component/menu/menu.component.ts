@@ -3,10 +3,11 @@ import { DrawerModule } from 'primeng/drawer';
 import { ButtonModule } from 'primeng/button';
 import { AuthService } from '../../service/auth/auth.service';
 import { Router } from '@angular/router';
+import { PanelMenuComponent } from '../panel-menu/panel-menu.component';
 
 @Component({
   selector: 'app-menu',
-  imports: [DrawerModule, ButtonModule],
+  imports: [DrawerModule, ButtonModule,PanelMenuComponent],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.css'
 })

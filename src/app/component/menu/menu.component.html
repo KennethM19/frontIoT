@@ -2,7 +2,7 @@
     <p-drawer [(visible)]="visible" header="Drawer">
         <div class="pages">
             <button (click)="goDashboard()">Monitoreo</button>
-            <button (click)="goSignals()">Configuración</button>
+            <app-panel-menu></app-panel-menu>
         </div>
         <div>
             <button (click)="logout()">desconectarse</button>
