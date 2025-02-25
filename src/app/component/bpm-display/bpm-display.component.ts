@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
 export class BpmDisplayComponent implements OnInit {
   lastBpm: number | null = null;
 
-  apiUrl = 'https://iot-production-c059.up.railway.app/api/primeros-bpm';
+  apiUrl = 'https://iot-production-c059.up.railway.app/api/ultimos-bpm';
 
   constructor(private http: HttpClient) { }
 

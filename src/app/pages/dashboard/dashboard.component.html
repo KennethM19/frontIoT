@@ -1,13 +1,19 @@
-<app-menu></app-menu>
-<section class="dashboard-container">
-    <div class="first-div">
-        <app-bpm-display></app-bpm-display>
-        <app-spo-display></app-spo-display>
-    </div>
-    <div class = 'second-div'>
-        <div class="graphic">
-            <app-heart-rate></app-heart-rate>
+<div class="menu">
+    <app-menu></app-menu>
+</div>
+<body>
+    <section class="dashboard-container">
+        <div class="first-div">
+            <app-bpm-display></app-bpm-display>
+            <app-spo-display></app-spo-display>
         </div>
-        <app-table-signal></app-table-signal>
-    </div>
-</section>
+        <div class = 'second-div'>
+            <div class="graphic">
+                <app-heart-rate></app-heart-rate>
+            </div>
+            <div class="table">
+                <app-table-signal></app-table-signal>
+            </div>
+        </div>
+    </section>
+</body>

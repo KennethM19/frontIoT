@@ -7,10 +7,10 @@ import { Selection } from '../../models/selection.model';
 export class MenuSelectionService {
 
   private selectedItems: Selection[] = [
-    { category: 'Derecha', signal: 'Señal 1' },
-    { category: 'Izquierda', signal: 'Señal 1' },
-    { category: 'Arriba', signal: 'Señal 1' },
-    { category: 'Abajo', signal: 'Señal 1' }
+    { category: 'Derecha', signal: 'Señal' },
+    { category: 'Izquierda', signal: 'Señal' },
+    { category: 'Arriba', signal: 'Señal' },
+    { category: 'Abajo', signal: 'Señal' }
   ];
   constructor() { }
 

@@ -15,54 +15,73 @@ export class PanelMenuComponent implements OnInit {
   items!: MenuItem[];
   datos: Datos[] = [];
 
+  private signalsMap: { [key: string]: string[] } = {
+    'Izquierda': [
+      'Tengo sed',
+      'Necesito ir al baño',
+      'Tengo hambre',
+      'Por favor, cambia mi posición',
+      'Por favor, ajusta mi almohada'
+    ],
+    'Derecha': [
+      'Necesito ayuda urgente',
+      'Estoy incómodo/a',
+      'Me duele algo',
+      'Ven aquí, por favor',
+      'Por favor, baja la luz'
+    ],
+    'Arriba': [
+      'Quiero hablar con alguien',
+      'Ponme música o televisión',
+      'Quiero que alguien me lea algo',
+      '¿A qué hora vendrán a verme?',
+      'Por favor, dame mi teléfono'
+    ],
+    'Abajo': [
+      'Estoy bien, gracias',
+      'No necesito nada ahora',
+      'Tengo frío, tráeme una manta',
+      'Tengo calor, por favor destápame',
+      'Puedes apagar la televisión, por favor'
+    ]
+  };
+
   constructor(private http: HttpClient, private menuSelectionService: MenuSelectionService) {}
 
   ngOnInit(): void {
-    // Inicializa los datos con 'Señal 1' por defecto
-    this.datos = [
-      { category: 'Derecha', signal: 'Señal 1' },
-      { category: 'Izquierda', signal: 'Señal 1' },
-      { category: 'Arriba', signal: 'Señal 1' },
-      { category: 'Abajo', signal: 'Señal 1' }
-    ];
+    // Inicializa los datos con la primera señal de cada movimiento por defecto
+    this.datos = Object.keys(this.signalsMap).map(category => ({
+      category,
+      signal: this.signalsMap[category][0] // Primera señal como predeterminada
+    }));
 
     // Define los items del menú
     this.items = [
       {
         label: 'Configuración',
         icon: 'pi pi-cog',
-        items: [
-          { label: 'Derecha', items: this.createSignalItems('Derecha') },
-          { label: 'Izquierda', items: this.createSignalItems('Izquierda') },
-          { label: 'Arriba', items: this.createSignalItems('Arriba') },
-          { label: 'Abajo', items: this.createSignalItems('Abajo') },
-        ]
+        items: Object.keys(this.signalsMap).map(category => ({
+          label: category,
+          items: this.createSignalItems(category)
+        }))
       }
     ];
   }
 
-  /**
-   * Crea las opciones de señal para cada categoría.
-   */
   createSignalItems(category: string): MenuItem[] {
-    return ['Señal 1', 'Señal 2', 'Señal 3'].map((signal, index) => ({
+    return this.signalsMap[category].map((signal, index) => ({
       label: signal,
       command: () => this.saveSelection(category, signal, index + 1)
     }));
   }
 
-  /**
-   * Actualiza la señal seleccionada y envía el dato a la API.
-   */
   updateSignal(category: string, signal: string, index: number): void {
-    // Actualiza la señal seleccionada
     const item = this.datos.find(d => d.category === category);
     if (item) {
       item.signal = signal;
-      this.sendDataToAPI(category, index); // Envía solo la actualización
+      this.sendDataToAPI(category, index);
     }
   }
-
 
   sendDataToAPI(category: string, index: number): void {
     const payload = {

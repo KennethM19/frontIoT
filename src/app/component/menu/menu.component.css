@@ -1,0 +1,80 @@
+.card {
+    display: flex;
+    align-items: center;
+  }
+  
+  .p-drawer {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    align-content: space-between;
+  }
+
+  .p-drawer-content {
+    overflow-y: visible;
+  }
+  
+  .panel {
+    flex-grow: 1; /* Hace que este contenedor ocupe todo el espacio disponible */
+    display: flex;
+    flex-direction: column;
+    gap: 1rem; /* Espacio entre los elementos */
+  }
+  
+  .panel button {
+    background-color: #007bff; /* Color azul profesional */
+    color: white;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .panel button:hover {
+    background-color: #0056b3;
+  }
+  
+  .logout {
+    margin-top: auto; /* 🔥 Empuja el botón de logout al fondo */
+    display: flex;
+    justify-content: center;
+    padding-top: 1rem;
+  }
+  
+  .logout button {
+    background-color: #dc3545; /* Rojo elegante para logout */
+    color: white;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .logout button:hover {
+    background-color: #b02a37;
+  }
+  
+  .p-button {
+    background-color: #4caf50; /* Verde atractivo */
+    color: white;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .p-button:hover {
+    background-color: #388e3c;
+  }
+  

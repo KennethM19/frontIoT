@@ -1,6 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ChartModule } from 'primeng/chart';
+import { UIChart } from 'primeng/chart';
 
 @Component({
   selector: 'app-heart-rate',
@@ -10,35 +11,41 @@ import { ChartModule } from 'primeng/chart';
   styleUrls: ['./heart-rate.component.css']
 })
 export class HeartRateComponent implements OnInit, OnDestroy {
+  @ViewChild('chart') chart!: UIChart;
+
   data: any;
   interval: any;
-  apiUrl = 'https://iot-production-c059.up.railway.app/api/ultimos-ir';
-  bpmValues: number[] = []; // Array para almacenar los BPM
-  currentIndex = 0; // Índice actual dentro del array
+  apiUrl = 'https://iot-production-c059.up.railway.app/api/ultimos-bpm';
+  bpmValues: number[] = [];
+  currentIndex: number = 0;
+  maxDataPoints = 10; // 🔥 Mantendremos siempre 10 puntos en la gráfica
 
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
     this.data = {
-      labels: [], 
+      labels: [],
       datasets: [{
         label: 'Heart Rate',
-        backgroundColor: '#4CAF50',
+        backgroundColor: 'rgba(76, 175, 80, 0.2)',
         borderColor: '#4CAF50',
-        fill: false,
-        lineTension: 0.1,
+        fill: true,
+        tension: 0.3,
         data: []
       }]
     };
 
-    this.fetchData(); // Obtener datos iniciales
+    this.fetchData();
   }
 
   fetchData(): void {
     this.http.get<number[]>(this.apiUrl).subscribe({
       next: (response) => {
+        console.log('Datos obtenidos de la API:', response);
         if (response.length > 0) {
           this.bpmValues = response;
+          this.currentIndex = this.bpmValues.length;
+          this.loadInitialData();
           this.startUpdatingChart();
         } else {
           console.warn('No hay datos disponibles.');
@@ -48,34 +55,61 @@ export class HeartRateComponent implements OnInit, OnDestroy {
     });
   }
 
-  startUpdatingChart(): void {
-    this.interval = setInterval(() => {
-      if (this.currentIndex < this.bpmValues.length) {
-        this.updateChartData(this.bpmValues[this.currentIndex]);
-        this.currentIndex++;
-      } else {
-        console.warn('Se alcanzó el último dato. Deteniendo actualizaciones.');
-        this.stopUpdates();
-      }
-    }, 2000); // Se actualiza cada 2 segundos
+  loadInitialData(): void {
+    const startIndex = Math.max(0, this.bpmValues.length - this.maxDataPoints);
+    const initialData = this.bpmValues.slice(startIndex);
+
+    this.data.labels = initialData.map((_, index) => `#${startIndex + index + 1}`);
+    this.data.datasets[0].data = initialData;
+
+    if (this.chart) {
+      this.chart.refresh();
+    }
   }
 
+  /**
+   * 🔄 Inicia la actualización de la gráfica en tiempo real.
+   */
+  startUpdatingChart(): void {
+    this.interval = setInterval(() => {
+      const newValue = this.getNextBpm();
+      if (newValue !== null) {
+        this.updateChartData(newValue);
+      } else {
+        console.warn('Se alcanzó el final de los datos, deteniendo actualización.');
+        this.stopUpdates();
+      }
+    }, 2000);
+  }
+
+  getNextBpm(): number | null {
+    if (this.currentIndex >= this.bpmValues.length) {
+      return null;
+    }
+    return this.bpmValues[this.currentIndex++];
+  }
+
+  /**
+   * 🔥 Desplaza los datos y agrega nuevos sin reiniciar la gráfica.
+   */
   updateChartData(newValue: number): void {
-    const maxDataPoints = 10;
-
-    this.data.labels.push(`#${this.currentIndex + 1}`);
+    this.data.labels.push(`#${this.currentIndex}`);
     this.data.datasets[0].data.push(newValue);
-
-    if (this.data.datasets[0].data.length > maxDataPoints) {
+    if (this.data.datasets[0].data.length > this.maxDataPoints) {
       this.data.labels.shift();
       this.data.datasets[0].data.shift();
     }
 
-    this.data = { ...this.data }; // Forzar actualización de la gráfica
+    console.log('Datos actuales en la gráfica:', this.data.datasets[0].data);
+
+    if (this.chart) {
+      this.chart.refresh();
+    }
   }
 
   stopUpdates(): void {
     clearInterval(this.interval);
+    console.log('Actualización de la gráfica detenida.');
   }
 
   ngOnDestroy(): void {

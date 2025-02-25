@@ -12,7 +12,7 @@ export class SpoDisplayComponent implements OnInit {
 
   lastSpo: number | null = null;
 
-  apiUrl = 'https://iot-production-c059.up.railway.app/api/primeros-bpm';
+  apiUrl = 'https://iot-production-c059.up.railway.app/api/ultimos-spo2';
 
   constructor(private http: HttpClient) {}
 

@@ -1,10 +1,10 @@
 <section class="card flex">
     <p-drawer [(visible)]="visible" header="Drawer">
-        <div class="pages">
+        <div class="panel">
             <button (click)="goDashboard()">Monitoreo</button>
             <app-panel-menu></app-panel-menu>
         </div>
-        <div>
+        <div class="logout">
             <button (click)="logout()">desconectarse</button>
         </div>
     </p-drawer>
