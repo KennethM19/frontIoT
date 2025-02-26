@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { Selection } from '../../models/selection.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class MenuSelectionService {
+export class MenuSelectionService implements OnInit{
 
   private selectedItems: Selection[] = [
     { category: 'Derecha', signal: 'Señal' },
@@ -13,6 +13,10 @@ export class MenuSelectionService {
     { category: 'Abajo', signal: 'Señal' }
   ];
   constructor() { }
+
+  ngOnInit(): void {
+      
+  }
 
   updateSelection(category: string, signal: string) {
     // Busca la categoría y actualiza la señal

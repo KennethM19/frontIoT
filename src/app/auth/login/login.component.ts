@@ -23,7 +23,7 @@ export class LoginComponent {
 
   login(): void {
     if (!this.authService.login(this.email, this.password)) {
-      this.errorMessage.set('Usuario o contraseña incorrectos');
+      console.log('Login failed');
     }
   }
 }

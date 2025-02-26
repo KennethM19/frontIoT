@@ -14,11 +14,12 @@ export class HeartRateComponent implements OnInit, OnDestroy {
   @ViewChild('chart') chart!: UIChart;
 
   data: any;
+  options: any;
   interval: any;
   apiUrl = 'https://iot-production-c059.up.railway.app/api/ultimos-bpm';
   bpmValues: number[] = [];
   currentIndex: number = 0;
-  maxDataPoints = 10; // 🔥 Mantendremos siempre 10 puntos en la gráfica
+  maxDataPoints = 20; 
 
   constructor(private http: HttpClient) {}
 
@@ -29,10 +30,22 @@ export class HeartRateComponent implements OnInit, OnDestroy {
         label: 'Heart Rate',
         backgroundColor: 'rgba(76, 175, 80, 0.2)',
         borderColor: '#4CAF50',
-        fill: true,
+        fill: false,
         tension: 0.3,
         data: []
       }]
+    };
+
+    this.options = {
+      scales: {
+        x: {
+          display: false
+        },
+        y: {
+          suggestedMin: 0,
+          suggestedMax: 240
+        }
+      }
     };
 
     this.fetchData();
@@ -67,9 +80,6 @@ export class HeartRateComponent implements OnInit, OnDestroy {
     }
   }
 
-  /**
-   * 🔄 Inicia la actualización de la gráfica en tiempo real.
-   */
   startUpdatingChart(): void {
     this.interval = setInterval(() => {
       const newValue = this.getNextBpm();
@@ -89,9 +99,6 @@ export class HeartRateComponent implements OnInit, OnDestroy {
     return this.bpmValues[this.currentIndex++];
   }
 
-  /**
-   * 🔥 Desplaza los datos y agrega nuevos sin reiniciar la gráfica.
-   */
   updateChartData(newValue: number): void {
     this.data.labels.push(`#${this.currentIndex}`);
     this.data.datasets[0].data.push(newValue);

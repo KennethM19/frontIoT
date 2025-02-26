@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class AuthService {
-  private readonly TOKEN_KEY = 'auth_token';
+  private readonly TOKEN_KEY = 'token_auth';
   isAuthenticated = signal<boolean>(false);
 
   constructor(private router: Router) {
@@ -14,7 +14,7 @@ export class AuthService {
 
   login(username: string, password: string): boolean {
     if (username === 'admin@admin.com' && password === '1234') {
-      localStorage.setItem(this.TOKEN_KEY, 'token_de_ejemplo');
+      localStorage.setItem(this.TOKEN_KEY, 'admin1234');
       this.isAuthenticated.set(true);
       this.router.navigate(['/dashboard']);
       return true;
@@ -30,7 +30,8 @@ export class AuthService {
 
   private getToken(): string | null {
     if (typeof localStorage !== 'undefined') {
-      return localStorage.getItem('token');
+      console.log(localStorage.getItem(this.TOKEN_KEY));
+      return localStorage.getItem(this.TOKEN_KEY);
     }
     return null;
   }
