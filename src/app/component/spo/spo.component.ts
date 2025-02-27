@@ -4,58 +4,60 @@ import { ChartModule } from 'primeng/chart';
 import { UIChart } from 'primeng/chart';
 
 @Component({
-  selector: 'app-heart-rate',
+  selector: 'app-spo',
   standalone: true,
   imports: [ChartModule],
-  templateUrl: './heart-rate.component.html',
-  styleUrls: ['./heart-rate.component.css']
+  templateUrl: './spo.component.html',
+  styleUrl: './spo.component.css',
 })
-export class HeartRateComponent implements OnInit, OnDestroy {
+export class SpoComponent implements OnInit, OnDestroy {
   @ViewChild('chart') chart!: UIChart;
 
   data: any;
   options: any;
   interval: any;
-  apiUrl = 'https://iot-production-c059.up.railway.app/api/ultimos-bpm';
-  bpmValues: number[] = [];
+  apiUrl = 'https://iot-production-c059.up.railway.app/api/ultimos-spo2';
+  spo2Values: number[] = [];
   currentIndex: number = 0;
-  maxDataPoints = 20; 
+  maxDataPoints = 20;
 
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
     this.data = {
       labels: [],
-      datasets: [{
-        label: 'Heart Rate',
-        backgroundColor: 'rgba(76, 175, 80, 0.2)',
-        borderColor: '#4CAF50',
-        fill: false,
-        tension: 0.3,
-        data: []
-      }]
+      datasets: [
+        {
+          label: 'Spo2',
+          backgroundColor: 'rgba(76, 175, 80, 0.2)',
+          borderColor: '#4CAF50',
+          fill: false,
+          tension: 0.3,
+          data: [],
+        },
+      ],
     };
 
     this.options = {
       scales: {
         x: {
-          display: false
+          display: false,
         },
         y: {
           suggestedMin: 0,
-          suggestedMax: 240
-        }
+          suggestedMax: 240,
+        },
       },
       plugins: {
         legend: {
-          display: false
+          display: false,
         },
         title: {
           display: true,
-          text: 'Heart Rate Monitor',
-          fontSize: 100
-        }
-      }
+          text: 'Spo2 Monitor',
+          fontSize: 100,
+        },
+      },
     };
 
     this.fetchData();
@@ -66,23 +68,25 @@ export class HeartRateComponent implements OnInit, OnDestroy {
       next: (response) => {
         console.log('Datos obtenidos de la API:', response);
         if (response.length > 0) {
-          this.bpmValues = response;
-          this.currentIndex = this.bpmValues.length;
+          this.spo2Values = response;
+          this.currentIndex = this.spo2Values.length;
           this.loadInitialData();
           this.startUpdatingChart();
         } else {
           console.warn('No hay datos disponibles.');
         }
       },
-      error: (error) => console.error('Error al obtener BPM:', error)
+      error: (error) => console.error('Error al obtener BPM:', error),
     });
   }
 
   loadInitialData(): void {
-    const startIndex = Math.max(0, this.bpmValues.length - this.maxDataPoints);
-    const initialData = this.bpmValues.slice(startIndex);
+    const startIndex = Math.max(0, this.spo2Values.length - this.maxDataPoints);
+    const initialData = this.spo2Values.slice(startIndex);
 
-    this.data.labels = initialData.map((_, index) => `#${startIndex + index + 1}`);
+    this.data.labels = initialData.map(
+      (_, index) => `#${startIndex + index + 1}`
+    );
     this.data.datasets[0].data = initialData;
 
     if (this.chart) {
@@ -96,17 +100,19 @@ export class HeartRateComponent implements OnInit, OnDestroy {
       if (newValue !== null) {
         this.updateChartData(newValue);
       } else {
-        console.warn('Se alcanzó el final de los datos, deteniendo actualización.');
+        console.warn(
+          'Se alcanzó el final de los datos, deteniendo actualización.'
+        );
         this.stopUpdates();
       }
     }, 2000);
   }
 
   getNextBpm(): number | null {
-    if (this.currentIndex >= this.bpmValues.length) {
+    if (this.currentIndex >= this.spo2Values.length) {
       return null;
     }
-    return this.bpmValues[this.currentIndex++];
+    return this.spo2Values[this.currentIndex++];
   }
 
   updateChartData(newValue: number): void {

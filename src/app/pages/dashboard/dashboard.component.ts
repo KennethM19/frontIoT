@@ -4,10 +4,11 @@ import { HeartRateComponent } from '../../component/heart-rate/heart-rate.compon
 import { TableSignalComponent } from '../../component/table-signal/table-signal.component';
 import { BpmDisplayComponent } from '../../component/bpm-display/bpm-display.component';
 import { SpoDisplayComponent } from '../../component/spo-display/spo-display.component';
+import { SpoComponent } from '../../component/spo/spo.component';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [MenuComponent,HeartRateComponent,TableSignalComponent,BpmDisplayComponent,SpoDisplayComponent],
+  imports: [MenuComponent,HeartRateComponent,TableSignalComponent,BpmDisplayComponent,SpoDisplayComponent,SpoComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })

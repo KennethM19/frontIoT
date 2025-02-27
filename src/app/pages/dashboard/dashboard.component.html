@@ -1,19 +1,25 @@
 <div class="menu">
     <app-menu></app-menu>
+    <h1>Dashboard</h1>
 </div>
-<body>
-    <section class="dashboard-container">
+<body class="dashboard-container">
         <div class="first-div">
-            <app-bpm-display></app-bpm-display>
-            <app-spo-display></app-spo-display>
+            <div class="reading">
+                <app-bpm-display class="data"></app-bpm-display>
+            </div>
+            <div class="reading">
+                <app-spo-display class="data"></app-spo-display>
+            </div>
+        </div>
+        <div class="graphic-bpm">
+            <app-heart-rate></app-heart-rate>
         </div>
         <div class = 'second-div'>
-            <div class="graphic">
-                <app-heart-rate></app-heart-rate>
+            <div class="graphic-spo">
+                <app-spo></app-spo>
             </div>
             <div class="table">
                 <app-table-signal></app-table-signal>
             </div>
         </div>
-    </section>
 </body>
