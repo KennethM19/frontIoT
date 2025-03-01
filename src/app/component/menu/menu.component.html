@@ -1,12 +1,11 @@
 <section class="card flex">
-    <p-drawer [(visible)]="visible" header="Drawer">
+    <p-drawer [(visible)]="visible" header="Menu">
         <div class="panel">
             <button (click)="goDashboard()">Monitoreo</button>
-            <app-panel-menu></app-panel-menu>
         </div>
         <div class="logout">
             <button (click)="logout()">desconectarse</button>
         </div>
     </p-drawer>
-    <p-button (click)="visible = true" icon="pi pi-arrow-right" />
+    <p-button (click)="visible = true" icon="pi pi-bars" size="large" [raised]="true" [fluid]="true"/>
 </section>

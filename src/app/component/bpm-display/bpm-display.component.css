@@ -1,3 +1,70 @@
-.bpm-container {
-    text-align: center;
+/* Contenedor de la tarjeta */
+.bpm-card {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+/* Efecto hover */
+.bpm-card:hover {
+    transform: translateY(-3px);
+}
+
+/* Icono con animación de latido */
+.bpm-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background-color: #ffe6e6;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+}
+
+.bpm-icon i {
+    font-size: 2rem;
+    color: #dc3545;
+    animation: heartbeat 1s infinite ease-in-out;
+}
+
+/* Animación de latido */
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    25% { transform: scale(1.1); }
+    50% { transform: scale(1); }
+    75% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* Contenido de la tarjeta */
+.bpm-content {
+    margin-left: 15px;
+    text-align: left;
+}
+
+.bpm-content h3 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.bpm-content p {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #222;
+}
+
+.loading {
+    color: #888;
+    font-size: 1.2rem;
+}
+
+.high-bpm {
+    background-color: rgba(255, 0, 0, 0.2);
+    transition: background-color 0.3s ease-in-out;
 }

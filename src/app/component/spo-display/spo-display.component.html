@@ -1,7 +1,15 @@
-<div class="spo-container">
+<div class="spo-card">
+  <!-- Columna 1: Icono -->
+  <div class="spo-icon">
+    <i class="fa-solid fa-droplet"></i>
+  </div>
+
+  <!-- Columna 2: Contenido -->
+  <div class="spo-content">
     <h3>SPO:</h3>
     <p *ngIf="lastSpo !== null; else loading">{{ lastSpo }} %</p>
     <ng-template #loading>
-      <p>Cargando...</p>
+      <p class="loading">Cargando...</p>
     </ng-template>
   </div>
+</div>

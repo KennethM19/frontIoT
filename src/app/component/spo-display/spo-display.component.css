@@ -1,3 +1,64 @@
-.spo-container {
-    text-align: center;
+/* Contenedor de la tarjeta */
+.spo-card {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+/* Efecto hover */
+.spo-card:hover {
+    transform: translateY(-3px);
+}
+
+/* Icono con animación de respiración */
+.spo-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background-color: #e3f2fd;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+}
+
+.spo-icon i {
+    font-size: 2rem;
+    color: #007bff;
+    animation: breathing 3s infinite ease-in-out;
+}
+
+/* Animación de respiración */
+@keyframes breathing {
+    0% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.15); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.8; }
+}
+
+/* Contenido de la tarjeta */
+.spo-content {
+    margin-left: 15px;
+    text-align: left;
+}
+
+.spo-content h3 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.spo-content p {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #222;
+}
+
+/* Estilo para el mensaje de carga */
+.loading {
+    color: #888;
+    font-size: 1.2rem;
 }

@@ -1,7 +1,13 @@
-<div class="bpm-container">
+<div class="bpm-card" [ngClass]="{ 'high-bpm': lastBpm && lastBpm > 80 }">
+  <div class="bpm-icon">
+    <i class="fas fa-heartbeat"></i>
+  </div>
+
+  <div class="bpm-content">
     <h3>BPM:</h3>
     <p *ngIf="lastBpm !== null; else loading">{{ lastBpm }}</p>
     <ng-template #loading>
-      <p>Cargando...</p>
+      <p class="loading">Cargando...</p>
     </ng-template>
   </div>
+</div>

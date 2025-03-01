@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PanelMenuComponent } from './panel-menu.component';
+import { InfoModalComponent } from './info-modal.component';
 
-describe('PanelMenuComponent', () => {
-  let component: PanelMenuComponent;
-  let fixture: ComponentFixture<PanelMenuComponent>;
+describe('InfoModalComponent', () => {
+  let component: InfoModalComponent;
+  let fixture: ComponentFixture<InfoModalComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PanelMenuComponent]
+      imports: [InfoModalComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(PanelMenuComponent);
+    fixture = TestBed.createComponent(InfoModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

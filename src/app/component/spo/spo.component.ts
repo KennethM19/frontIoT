@@ -76,7 +76,7 @@ export class SpoComponent implements OnInit, OnDestroy {
           console.warn('No hay datos disponibles.');
         }
       },
-      error: (error) => console.error('Error al obtener BPM:', error),
+      error: (error) => console.error('Error al obtener SPO:', error),
     });
   }
 

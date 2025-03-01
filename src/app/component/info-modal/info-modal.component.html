@@ -1,0 +1,25 @@
+<div class="modal-overlay">
+    <div class="modal-content">
+      <h2>Selecciona tu género</h2>
+  
+      <div class="gender-selection">
+        <button (click)="showTable('male')" class="gender-btn">
+          <i class="fas fa-mars"></i> Hombre
+        </button>
+        <button (click)="showTable('female')" class="gender-btn">
+          <i class="fas fa-venus"></i> Mujer
+        </button>
+      </div>
+  
+      <div *ngIf="selectedGender == 'male'">
+        <img src="hombre-table.png" alt="Tabla Hombres"/>
+      </div>
+  
+      <div *ngIf="selectedGender == 'female'">
+        <img src="mujeres-table.png" alt="Tabla Mujeres" />
+      </div>
+  
+      <button class="close-btn" (click)="closeModal()">Cerrar</button>
+    </div>
+  </div>
+  

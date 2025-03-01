@@ -27,7 +27,7 @@ export class HeartRateComponent implements OnInit, OnDestroy {
     this.data = {
       labels: [],
       datasets: [{
-        label: 'Heart Rate',
+        label: 'Oxygen',
         backgroundColor: 'rgba(76, 175, 80, 0.2)',
         borderColor: '#4CAF50',
         fill: false,
@@ -48,14 +48,14 @@ export class HeartRateComponent implements OnInit, OnDestroy {
       },
       plugins: {
         legend: {
-          display: false
+          display: false,
         },
         title: {
           display: true,
-          text: 'Heart Rate Monitor',
-          fontSize: 100
-        }
-      }
+          text: 'Heat-Rate Monitor',
+          fontSize: 100,
+        },
+      },
     };
 
     this.fetchData();

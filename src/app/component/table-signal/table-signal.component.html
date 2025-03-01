@@ -1,4 +1,4 @@
-<table class="table">
+<table class="custom-table">
   <thead>
     <tr>
       <th>Categoría</th>
@@ -6,9 +6,15 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let item of selectedItems">
+    <tr *ngFor="let item of datos">
       <td>{{ item.category }}</td>
-      <td>{{ item.signal }}</td>
+      <td>
+        <select [(ngModel)]="item.signal" (change)="onSignalChange(item.category, item.signal)">
+          <option *ngFor="let signal of signalsMap[item.category]" [value]="signal">
+            {{ signal }}
+          </option>
+        </select>
+      </td>
     </tr>
   </tbody>
 </table>

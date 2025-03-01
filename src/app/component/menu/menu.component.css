@@ -1,80 +1,101 @@
-.card {
-    display: flex;
-    align-items: center;
-  }
-  
-  .p-drawer {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    padding: 1rem;
-    background-color: #f8f9fa;
-    align-content: space-between;
-  }
+/* Estilos generales */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f9;
+}
 
-  .p-drawer-content {
-    overflow-y: visible;
-  }
-  
-  .panel {
-    flex-grow: 1; 
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-  
-  .panel button {
-    background-color: #007bff; 
-    color: white;
-    border: none;
-    padding: 0.75rem;
-    border-radius: 5px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-  
-  .panel button:hover {
-    background-color: #0056b3;
-  }
-  
-  .logout {
-    margin-top: auto; 
-    display: flex;
-    justify-content: center;
-    padding-top: 1rem;
-  }
-  
-  .logout button {
-    background-color: #dc3545;
-    color: white;
-    border: none;
-    padding: 0.75rem;
-    border-radius: 5px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-  
-  .logout button:hover {
-    background-color: #b02a37;
-  }
-  
-  .p-button {
-    background-color: #4caf50; 
-    color: white;
-    border: none;
-    padding: 0.75rem;
-    border-radius: 50%;
-    font-size: 1.2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-  
-  .p-button:hover {
-    background-color: #388e3c;
-  }
-  
+/* Contenedor principal */
+.card {
+  display: flex;
+  align-items: center;
+}
+
+/* Estilo del Drawer */
+.p-drawer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 1.5rem;
+  background-color: #ffffff;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.p-drawer-content {
+  overflow-y: auto;
+}
+
+/* Panel de Opciones */
+.panel {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
+/* Botones del Panel */
+.panel button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.85rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.panel button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+/* Botón de Logout */
+.logout {
+  margin-top: auto;
+  display: flex;
+  justify-content: center;
+  padding-top: 1rem;
+}
+
+.logout button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 0.85rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.logout button:hover {
+  background-color: #b02a37;
+  transform: scale(1.05);
+}
+
+/* Botón de Apertura del Drawer */
+.p-button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 0.85rem;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.p-button:hover {
+  background-color: #388e3c;
+  transform: scale(1.1);
+}
