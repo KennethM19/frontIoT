@@ -1,5 +1,7 @@
+<div class="logout">
+    <button (click)="logout()">desconectarse</button>
+</div>
 <div class="flex flex-row w-full h-full">
-    <app-menu></app-menu>
     <div class="flex flex-row w-full h-full">
 
         <div class="flex flex-col w-full pt-10 justify-center items-center space-y-10">
@@ -13,9 +15,6 @@
         <div class="flex flex-col items-center justify-center px-5 w-[60%] h-full space-y-10 .w-60-custom">
             <app-table-signal></app-table-signal>
             <button class="dashboard-btn" (click)="openModal()">📊 Información bpm</button>
-            <div class="slogan">
-                <p>"Cada pequeño esfuerzo te acerca a un gran avance. 🌟 ¡No estás solo!"</p>
-            </div>
         </div>
     </div>
 </div>

@@ -1,7 +1,7 @@
 body {
     padding: 2rem;
-    background-color: #f4f4f9;
-    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to bottom, #eef2f3, #d9e2ec);
+    font-family: 'Poppins', sans-serif;
 }
 
 .dashboard-container {
@@ -21,42 +21,22 @@ body {
 .first-div div {
     width: 7rem;
     height: 7rem;
-    background-color: #222;
+    background-color: #4a90e2;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
     color: white;
-    font-size: 24px;
+    font-size: 22px;
     font-weight: bold;
-    border: 6px solid #666;
-    position: relative;
-    transition: transform 0.3s ease-in-out;
+    border: 4px solid #666;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
 }
 
 .first-div div:hover {
     transform: scale(1.1);
-}
-
-.first-div div::before, 
-.first-div div::after {
-    content: "";
-    position: absolute;
-    width: 30px;
-    height: 80px;
-    background: #444;
-    left: 50%;
-    transform: translateX(-50%);
-    border-radius: 10px;
-}
-
-.first-div div::before {
-    top: -90px;
-}
-
-.first-div div::after {
-    bottom: -90px;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.25);
 }
 
 .second-div {
@@ -71,12 +51,13 @@ body {
     background: white;
     padding: 1rem;
     border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease-in-out;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
 }
 
 .second-div div:hover {
     transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .graphic {
@@ -93,18 +74,17 @@ body {
     margin-top: 20px;
     padding: 15px;
     text-align: center;
-    background: linear-gradient(90deg, #007bff, #00c6ff);
+    background: linear-gradient(90deg, #4a90e2, #1e73be);
     border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     max-width: 80%;
 }
 
 .slogan p {
-    font-family: "Poppins", sans-serif;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: bold;
     color: white;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
     animation: fadeIn 2s ease-in-out;
 }
 
@@ -117,10 +97,16 @@ body {
     .flex {
         flex-direction: column;
         align-items: center; 
+        padding: 0;
     }
 
     .flex-row {
         flex-direction: column; 
+    }
+
+    .flex-row * {
+        margin: 0.5rem 0;
+        padding: 0 1rem;
     }
 
     .w-60-custom {
@@ -128,7 +114,7 @@ body {
     }
 
     .slogan {
-        font-size: 1.2rem;
+        font-size: 1rem;
         max-width: 90%;
     }
 
@@ -142,7 +128,7 @@ body {
 }
 
 .dashboard-btn {
-    background: linear-gradient(135deg, #007bff, #0056b3);
+    background: linear-gradient(135deg, #4a90e2, #1e73be);
     color: white;
     border: none;
     padding: 12px 24px;
@@ -150,19 +136,48 @@ body {
     font-weight: bold;
     border-radius: 8px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.3s ease-in-out;
     display: flex;
     align-items: center;
     gap: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
 }
 
 .dashboard-btn:hover {
-    background: linear-gradient(135deg, #0056b3, #003d80);
+    background: linear-gradient(135deg, #1e73be, #155a9f);
     transform: scale(1.05);
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.4);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
 }
 
 .dashboard-btn:active {
+    transform: scale(0.98);
+}
+
+.logout {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.logout button {
+    background: linear-gradient(135deg, #ff4d4d, #d93636);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.logout button:hover {
+    background: linear-gradient(135deg, #d93636, #b02a2a);
+    transform: scale(1.05);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.logout button:active {
     transform: scale(0.98);
 }
