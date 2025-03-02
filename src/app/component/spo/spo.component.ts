@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { ChartModule } from 'primeng/chart';
 import { UIChart } from 'primeng/chart';
+import { FirestoreService } from '../../service/firestore/firestore.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-spo',
@@ -15,13 +16,12 @@ export class SpoComponent implements OnInit, OnDestroy {
 
   data: any;
   options: any;
-  interval: any;
-  apiUrl = 'http://localhost:3000/mostrarnumeros';
-  spo2Values: number[] = [];
-  currentIndex: number = 0;
+  spoValues: number[] = [];
+  private bpmSubscription!: Subscription;
+  private realTimeSubscription!: Subscription;
   maxDataPoints = 20;
 
-  constructor(private http: HttpClient) {}
+  constructor(private firestoreService: FirestoreService) {}
 
   ngOnInit(): void {
     this.data = {
@@ -54,88 +54,55 @@ export class SpoComponent implements OnInit, OnDestroy {
         },
         title: {
           display: true,
-          text: 'Spo2 Monitor',
-          fontSize: 100,
+          text: 'Spo2 Monitor'
         },
       },
     };
 
-    this.fetchData();
-  }
-
-  fetchData(): void {
-    this.http.get<number[]>(this.apiUrl).subscribe({
-      next: (response) => {
-        console.log('Datos obtenidos de la API:', response);
-        if (response.length > 0) {
-          this.spo2Values = response;
-          this.currentIndex = this.spo2Values.length;
-          this.loadInitialData();
-          this.startUpdatingChart();
-        } else {
-          console.warn('No hay datos disponibles.');
-        }
-      },
-      error: (error) => console.error('Error al obtener SPO:', error),
-    });
+    this.loadInitialData();
   }
 
   loadInitialData(): void {
-    const startIndex = Math.max(0, this.spo2Values.length - this.maxDataPoints);
-    const initialData = this.spo2Values.slice(startIndex);
+    this.bpmSubscription = this.firestoreService.getLast10Spo2().subscribe({
+      next: (bpmList) => {
+        console.log('Últimos 10 BPM:', bpmList);
+        this.spoValues = bpmList;
+        this.updateChart(bpmList);
+        this.listenForRealTimeUpdates();
+      },
+      error: (error) => console.error('Error al obtener BPM iniciales:', error),
+    });
+  }
 
-    this.data.labels = initialData.map(
-      (_, index) => `#${startIndex + index + 1}`
-    );
-    this.data.datasets[0].data = initialData;
+  listenForRealTimeUpdates(): void {
+    this.realTimeSubscription = this.firestoreService
+      .getRealTimeBPM()
+      .subscribe({
+        next: (newBpm) => {
+          if (newBpm !== null && !this.spoValues.includes(newBpm)) {
+            this.spoValues.push(newBpm);
+            if (this.spoValues.length > this.maxDataPoints) {
+              this.spoValues.shift();
+            }
+            this.updateChart(this.spoValues);
+          }
+        },
+        error: (error) =>
+          console.error('Error en la actualización en tiempo real:', error),
+      });
+  }
+
+  updateChart(bpmList: number[]): void {
+    this.data.labels = bpmList.map((_, index) => `#${index + 1}`);
+    this.data.datasets[0].data = bpmList;
 
     if (this.chart) {
       this.chart.refresh();
     }
-  }
-
-  startUpdatingChart(): void {
-    this.interval = setInterval(() => {
-      const newValue = this.getNextBpm();
-      if (newValue !== null) {
-        this.updateChartData(newValue);
-      } else {
-        console.warn(
-          'Se alcanzó el final de los datos, deteniendo actualización.'
-        );
-        this.stopUpdates();
-      }
-    }, 2000);
-  }
-
-  getNextBpm(): number | null {
-    if (this.currentIndex >= this.spo2Values.length) {
-      return null;
-    }
-    return this.spo2Values[this.currentIndex++];
-  }
-
-  updateChartData(newValue: number): void {
-    this.data.labels.push(`#${this.currentIndex}`);
-    this.data.datasets[0].data.push(newValue);
-    if (this.data.datasets[0].data.length > this.maxDataPoints) {
-      this.data.labels.shift();
-      this.data.datasets[0].data.shift();
-    }
-
-    console.log('Datos actuales en la gráfica:', this.data.datasets[0].data);
-
-    if (this.chart) {
-      this.chart.refresh();
-    }
-  }
-
-  stopUpdates(): void {
-    clearInterval(this.interval);
-    console.log('Actualización de la gráfica detenida.');
   }
 
   ngOnDestroy(): void {
-    this.stopUpdates();
+    if (this.bpmSubscription) this.bpmSubscription.unsubscribe();
+    if (this.realTimeSubscription) this.realTimeSubscription.unsubscribe();
   }
 }

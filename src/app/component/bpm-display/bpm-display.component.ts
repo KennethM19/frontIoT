@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgClass } from '@angular/common';
+import { FirestoreService } from '../../service/firestore/firestore.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-bpm-display',
@@ -12,40 +13,31 @@ import { NgClass } from '@angular/common';
 })
 export class BpmDisplayComponent implements OnInit, OnDestroy {
   lastBpm: number | null = null;
-  apiUrl = 'http://localhost:3000/mostrarnumeros';
-  interval: any;
+  private dataSubscription!: Subscription;
 
-  constructor(private http: HttpClient) {}
+  constructor(private firestoreService: FirestoreService) {}
 
   ngOnInit(): void {
-    this.startPolling();
+    this.listenForRealTimeUpdates();
   }
 
-  startPolling(): void {
-    this.interval = setInterval(() => {
-      this.fetchLastBpm();
-    }, 5000);
-  }
-
-  fetchLastBpm(): void {
-    this.http.get<number[]>(this.apiUrl).subscribe({
-      next: (data) => {
-        if (data.length > 0) {
-          const newBpm = data[data.length - 1];
-
-          if (newBpm !== this.lastBpm) {
-            this.lastBpm = newBpm;
-            console.log('Nuevo dato detectado:', newBpm);
-          } else {
-            console.log('No hay nuevos datos.');
-          }
+  listenForRealTimeUpdates(): void {
+    this.dataSubscription = this.firestoreService.getRealTimeBPM().subscribe({
+      next: (bpm) => {
+        if (bpm !== null && bpm !== this.lastBpm) {
+          this.lastBpm = bpm;
+          console.log('Nuevo SpO2 detectado:', bpm);
+        } else {
+          console.log('No hay nuevos datos.');
         }
       },
-      error: (error) => console.error('Error al obtener BPM:', error)
+      error: (error) => console.error('Error al obtener SpO2 de Firestore:', error)
     });
   }
 
   ngOnDestroy(): void {
-    clearInterval(this.interval);
+    if (this.dataSubscription) {
+      this.dataSubscription.unsubscribe();
+    }
   }
 }
