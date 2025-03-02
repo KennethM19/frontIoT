@@ -16,7 +16,7 @@ export class HeartRateComponent implements OnInit, OnDestroy {
   data: any;
   options: any;
   interval: any;
-  apiUrl = 'https://iot-production-c059.up.railway.app/api/ultimos-bpm';
+  apiUrl = 'http://localhost:3000/mostrarnumeros';
   bpmValues: number[] = [];
   currentIndex: number = 0;
   maxDataPoints = 20; 

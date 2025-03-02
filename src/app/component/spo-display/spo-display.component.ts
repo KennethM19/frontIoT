@@ -12,37 +12,40 @@ import { NgClass } from '@angular/common';
 export class SpoDisplayComponent implements OnInit {
 
   lastSpo: number | null = null;
-  apiUrl = 'https://iot-production-c059.up.railway.app/api/ultimos-spo2';
+  apiUrl = 'http://localhost:3000/mostrarnumeros';
   interval: any;
 
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.fetchLastSpo();
-  }
-
-  fetchLastSpo(): void {
-    this.http.get<number[]>(this.apiUrl).subscribe({
-      next: (data) => {
-        if (data.length > 0) {
-          const newSpo = data[data.length - 1];
-
-          if (newSpo !== this.lastSpo) {
-            this.lastSpo = newSpo;
-            console.log('Nuevo dato detectado, reiniciando consultas.');
-            this.startPolling();
-          } else {
-            console.log('Mismo valor, deteniendo consultas.');
-            clearInterval(this.interval);
-          }
-        }
-      },
-      error: (error) => console.error('Error al obtener SPO2:', error)
-    });
+    this.startPolling();
   }
 
   startPolling(): void {
-    clearInterval(this.interval); 
-    this.interval = setInterval(() => this.fetchLastSpo(), 5000);
+    this.interval = setInterval(() => {
+      this.fetchLastBpm();
+    }, 5000);
+  }
+
+  fetchLastBpm(): void {
+    this.http.get<number[]>(this.apiUrl).subscribe({
+      next: (data) => {
+        if (data.length > 0) {
+          const newBpm = data[data.length - 1];
+
+          if (newBpm !== this.lastSpo) {
+            this.lastSpo = newBpm;
+            console.log('Nuevo dato detectado:', newBpm);
+          } else {
+            console.log('No hay nuevos datos.');
+          }
+        }
+      },
+      error: (error) => console.error('Error al obtener BPM:', error)
+    });
+  }
+
+  ngOnDestroy(): void {
+    clearInterval(this.interval);
   }
 }

@@ -16,7 +16,7 @@ export class SpoComponent implements OnInit, OnDestroy {
   data: any;
   options: any;
   interval: any;
-  apiUrl = 'https://iot-production-c059.up.railway.app/api/ultimos-spo2';
+  apiUrl = 'http://localhost:3000/mostrarnumeros';
   spo2Values: number[] = [];
   currentIndex: number = 0;
   maxDataPoints = 20;

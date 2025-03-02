@@ -1,23 +1,30 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-bpm-display',
+  standalone: true,
   imports: [CommonModule, NgClass],
   templateUrl: './bpm-display.component.html',
   styleUrl: './bpm-display.component.css'
 })
-export class BpmDisplayComponent implements OnInit {
+export class BpmDisplayComponent implements OnInit, OnDestroy {
   lastBpm: number | null = null;
-  apiUrl = 'https://iot-production-c059.up.railway.app/api/ultimos-bpm';
+  apiUrl = 'http://localhost:3000/mostrarnumeros';
   interval: any;
-  
+
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.fetchLastBpm();
+    this.startPolling();
+  }
+
+  startPolling(): void {
+    this.interval = setInterval(() => {
+      this.fetchLastBpm();
+    }, 5000);
   }
 
   fetchLastBpm(): void {
@@ -28,11 +35,9 @@ export class BpmDisplayComponent implements OnInit {
 
           if (newBpm !== this.lastBpm) {
             this.lastBpm = newBpm;
-            console.log('Nuevo dato detectado, reiniciando consultas.');
-            this.startPolling();
+            console.log('Nuevo dato detectado:', newBpm);
           } else {
-            console.log('Mismo valor, deteniendo consultas.');
-            clearInterval(this.interval);
+            console.log('No hay nuevos datos.');
           }
         }
       },
@@ -40,8 +45,7 @@ export class BpmDisplayComponent implements OnInit {
     });
   }
 
-  startPolling(): void {
+  ngOnDestroy(): void {
     clearInterval(this.interval);
-    this.interval = setInterval(() => this.fetchLastBpm(), 5000);
   }
 }
