@@ -1,13 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { NgClass } from '@angular/common';
 import { FirestoreService } from '../../service/firestore/firestore.service';
 import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-spo-display',
   standalone: true,
-  imports: [CommonModule, NgClass],
+  imports: [CommonModule],
   templateUrl: './spo-display.component.html',
   styleUrl: './spo-display.component.css'
 })

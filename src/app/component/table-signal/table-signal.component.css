@@ -1,39 +1,41 @@
 .custom-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-family: 'Arial', sans-serif;
-    background: #ffffff;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .custom-table thead {
-    background: #007bff;
-    color: white;
-    text-align: left;
-  }
-  
-  .custom-table th, .custom-table td {
-    padding: 12px;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  tbody tr:hover {
-    background: #f1f1f1;
-  }
-  
-  select {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-  }
-  
-  select:focus {
-    border-color: #007bff;
-    outline: none;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-  }
-  
+  width: 100%;
+  max-width: 900px;
+  border-collapse: collapse;
+  font-family: 'Arial', sans-serif;
+  font-size: 18px; 
+  background: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.custom-table thead {
+  background: #007bff;
+  color: white;
+  text-align: left;
+  font-size: 20px;
+}
+
+.custom-table th, .custom-table td {
+  padding: 16px;
+  border-bottom: 1px solid #ddd;
+}
+
+tbody tr:hover {
+  background: #f8f9fa;
+}
+
+select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+select:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 6px rgba(0, 123, 255, 0.5);
+}

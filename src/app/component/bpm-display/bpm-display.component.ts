@@ -1,13 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { NgClass } from '@angular/common';
 import { FirestoreService } from '../../service/firestore/firestore.service';
 import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-bpm-display',
   standalone: true,
-  imports: [CommonModule, NgClass],
+  imports: [CommonModule],
   templateUrl: './bpm-display.component.html',
   styleUrl: './bpm-display.component.css'
 })

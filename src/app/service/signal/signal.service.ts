@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class SignalService {
-  private apiUrl = 'https://iot-production-c059.up.railway.app/api/actualizar-movimiento';
+  private apiUrl = 'https://iot-production-5067.up.railway.app';
 
   constructor(private http: HttpClient) {}
 
