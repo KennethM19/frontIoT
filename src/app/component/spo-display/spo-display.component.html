@@ -1,4 +1,4 @@
-<div class="spo-card">
+<div class="spo-card" [ngClass]="{ 'high-spo': lastSpo && (lastSpo > 100 || lastSpo < 95)}">
   <!-- Columna 1: Icono -->
   <div class="spo-icon">
     <i class="fa-solid fa-droplet"></i>

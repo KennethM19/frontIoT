@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-spo-display',
-  imports: [CommonModule],
+  imports: [CommonModule, NgClass],
   templateUrl: './spo-display.component.html',
   styleUrl: './spo-display.component.css'
 })
