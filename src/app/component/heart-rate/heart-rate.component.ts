@@ -19,7 +19,7 @@ export class HeartRateComponent implements OnInit, OnDestroy {
   bpmValues: number[] = [];
   private bpmSubscription!: Subscription;
   private realTimeSubscription!: Subscription;
-  maxDataPoints = 20;
+  maxDataPoints = 30;
 
   constructor(private firestoreService: FirestoreService) {}
 
@@ -53,9 +53,8 @@ export class HeartRateComponent implements OnInit, OnDestroy {
   }
 
   loadInitialData(): void {
-    this.bpmSubscription = this.firestoreService.getLast10BPMs().subscribe({
+    this.bpmSubscription = this.firestoreService.getLast30BPMs().subscribe({
       next: (bpmList) => {
-        console.log('Últimos 10 BPM:', bpmList);
         this.bpmValues = bpmList;
         this.updateChart(bpmList);
         this.listenForRealTimeUpdates();

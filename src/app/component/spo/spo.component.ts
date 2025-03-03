@@ -19,7 +19,7 @@ export class SpoComponent implements OnInit, OnDestroy {
   spoValues: number[] = [];
   private bpmSubscription!: Subscription;
   private realTimeSubscription!: Subscription;
-  maxDataPoints = 20;
+  maxDataPoints = 30;
 
   constructor(private firestoreService: FirestoreService) {}
 
@@ -63,9 +63,8 @@ export class SpoComponent implements OnInit, OnDestroy {
   }
 
   loadInitialData(): void {
-    this.bpmSubscription = this.firestoreService.getLast10Spo2().subscribe({
+    this.bpmSubscription = this.firestoreService.getLast30Spo2().subscribe({
       next: (bpmList) => {
-        console.log('Últimos 10 BPM:', bpmList);
         this.spoValues = bpmList;
         this.updateChart(bpmList);
         this.listenForRealTimeUpdates();

@@ -25,12 +25,12 @@ export class BpmDisplayComponent implements OnInit, OnDestroy {
       next: (bpm) => {
         if (bpm !== null && bpm !== this.lastBpm) {
           this.lastBpm = bpm;
-          console.log('Nuevo SpO2 detectado:', bpm);
+          console.log('Nuevo BPM detectado:', bpm);
         } else {
           console.log('No hay nuevos datos.');
         }
       },
-      error: (error) => console.error('Error al obtener SpO2 de Firestore:', error)
+      error: (error) => console.error('Error al obtener BPM de Firestore:', error)
     });
   }
 

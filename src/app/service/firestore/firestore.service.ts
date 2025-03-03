@@ -33,18 +33,18 @@ export class FirestoreService {
     );
   }
 
-  getLast10Spo2(): Observable<number[]> {
+  getLast30Spo2(): Observable<number[]> {
     const colRef = collection(this.firestore, 'datosFisiologicos');
-    const q = query(colRef, orderBy('timestamp', 'desc'), limit(10));
+    const q = query(colRef, orderBy('timestamp', 'desc'), limit(30));
 
     return collectionData(q, { idField: 'id' }).pipe(
       map((docs) => docs.map((doc) => doc['SpO2']).reverse())
     );
   }
 
-  getLast10BPMs(): Observable<number[]> {
+  getLast30BPMs(): Observable<number[]> {
     const colRef = collection(this.firestore, 'datosFisiologicos');
-    const q = query(colRef, orderBy('timestamp', 'desc'), limit(10));
+    const q = query(colRef, orderBy('timestamp', 'desc'), limit(30));
 
     return collectionData(q, { idField: 'id' }).pipe(
       map((docs) => docs.map((doc) => doc['BPM']).reverse())
