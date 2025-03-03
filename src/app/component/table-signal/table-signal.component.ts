@@ -28,8 +28,8 @@ export class TableSignalComponent implements OnInit {
       'Por favor, baja la luz',
     ],
     Arriba: [
-      'Quiero hablar con alguien',
-      'Ponme música o televisión',
+      'Por favor, ponme musica',
+      'Por favor, prende la television',
       'Quiero que alguien me lea algo',
       '¿A qué hora vendrán a verme?',
       'Por favor, dame mi teléfono',
