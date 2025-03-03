@@ -44,8 +44,8 @@ export class SpoComponent implements OnInit, OnDestroy {
           display: false,
         },
         y: {
-          suggestedMin: 0,
-          suggestedMax: 240,
+          suggestedMin: 80,
+          suggestedMax: 100,
         },
       },
       plugins: {

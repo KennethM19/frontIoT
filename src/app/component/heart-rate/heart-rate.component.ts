@@ -41,7 +41,7 @@ export class HeartRateComponent implements OnInit, OnDestroy {
     this.options = {
       scales: {
         x: { display: false },
-        y: { suggestedMin: 40, suggestedMax: 200 },
+        y: { suggestedMin: 60, suggestedMax: 120 },
       },
       plugins: {
         legend: { display: false },
