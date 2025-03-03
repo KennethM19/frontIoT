@@ -30,7 +30,6 @@ export class AuthService {
 
   private getToken(): string | null {
     if (typeof localStorage !== 'undefined') {
-      console.log(localStorage.getItem(this.TOKEN_KEY));
       return localStorage.getItem(this.TOKEN_KEY);
     }
     return null;

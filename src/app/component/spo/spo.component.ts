@@ -17,7 +17,7 @@ export class SpoComponent implements OnInit, OnDestroy {
   data: any;
   options: any;
   spoValues: number[] = [];
-  private bpmSubscription!: Subscription;
+  private spoSubscription!: Subscription;
   private realTimeSubscription!: Subscription;
   maxDataPoints = 30;
 
@@ -63,23 +63,23 @@ export class SpoComponent implements OnInit, OnDestroy {
   }
 
   loadInitialData(): void {
-    this.bpmSubscription = this.firestoreService.getLast30Spo2().subscribe({
-      next: (bpmList) => {
-        this.spoValues = bpmList;
-        this.updateChart(bpmList);
+    this.spoSubscription = this.firestoreService.getLast30Spo2().subscribe({
+      next: (spoList) => {
+        this.spoValues = spoList;
+        this.updateChart(spoList);
         this.listenForRealTimeUpdates();
       },
-      error: (error) => console.error('Error al obtener BPM iniciales:', error),
+      error: (error) => console.error('Error al obtener SPO iniciales:', error),
     });
   }
 
   listenForRealTimeUpdates(): void {
     this.realTimeSubscription = this.firestoreService
-      .getRealTimeBPM()
+      .getLastSpO2()
       .subscribe({
-        next: (newBpm) => {
-          if (newBpm !== null && !this.spoValues.includes(newBpm)) {
-            this.spoValues.push(newBpm);
+        next: (newSpo) => {
+          if (newSpo !== null && !this.spoValues.includes(newSpo)) {
+            this.spoValues.push(newSpo);
             if (this.spoValues.length > this.maxDataPoints) {
               this.spoValues.shift();
             }
@@ -91,9 +91,9 @@ export class SpoComponent implements OnInit, OnDestroy {
       });
   }
 
-  updateChart(bpmList: number[]): void {
-    this.data.labels = bpmList.map((_, index) => `#${index + 1}`);
-    this.data.datasets[0].data = bpmList;
+  updateChart(spoList: number[]): void {
+    this.data.labels = spoList.map((_, index) => `#${index + 1}`);
+    this.data.datasets[0].data = spoList;
 
     if (this.chart) {
       this.chart.refresh();
@@ -101,7 +101,7 @@ export class SpoComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.bpmSubscription) this.bpmSubscription.unsubscribe();
+    if (this.spoSubscription) this.spoSubscription.unsubscribe();
     if (this.realTimeSubscription) this.realTimeSubscription.unsubscribe();
   }
 }
